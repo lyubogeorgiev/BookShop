@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Random;
 
 @Service
 public class AuthorServiceImpl implements AuthorService{
@@ -25,5 +27,17 @@ public class AuthorServiceImpl implements AuthorService{
     @Override
     public boolean isDataSeeded() {
         return this.authorRepository.count() > 0;
+    }
+
+    @Override
+    public Author getRandomAuthor() {
+        int count = (int) this.authorRepository.count();
+        if (count != 0){
+            Random rand = new Random();
+            Long id = (long) rand.nextInt(1, (count));
+            return this.authorRepository.findAuthorById(id).orElseThrow(NoSuchElementException::new);
+        }
+
+        throw new RuntimeException();
     }
 }

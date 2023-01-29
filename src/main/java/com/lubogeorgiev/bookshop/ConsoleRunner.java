@@ -18,6 +18,6 @@ public class ConsoleRunner implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        this.seedService.seedAuthors();
+        this.seedService.seedAllData();
     }
 }
