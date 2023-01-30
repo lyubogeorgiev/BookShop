@@ -2,6 +2,7 @@ package com.lubogeorgiev.bookshop.services.author;
 
 import com.lubogeorgiev.bookshop.domain.entities.Author;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface AuthorService {
@@ -11,4 +12,8 @@ public interface AuthorService {
     boolean isDataSeeded();
 
     Author getRandomAuthor();
+
+    List<Author> findDistinctByBooksBefore(LocalDate date);
+
+    List<Author> findAllOrderByBooks();
 }

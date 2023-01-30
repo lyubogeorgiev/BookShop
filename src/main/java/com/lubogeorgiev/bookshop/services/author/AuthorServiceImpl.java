@@ -5,6 +5,7 @@ import com.lubogeorgiev.bookshop.repositories.AuthorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Random;
@@ -39,5 +40,15 @@ public class AuthorServiceImpl implements AuthorService{
         }
 
         throw new RuntimeException();
+    }
+
+    @Override
+    public List<Author> findDistinctByBooksBefore(LocalDate date) {
+        return this.authorRepository.findDistinctByBooksReleaseDateBefore(date).orElseThrow(NoSuchElementException::new);
+    }
+
+    @Override
+    public List<Author> findAllOrderByBooks() {
+        return this.authorRepository.findAllOrderByBooks().orElseThrow(NoSuchElementException::new);
     }
 }

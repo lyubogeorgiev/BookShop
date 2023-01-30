@@ -5,7 +5,9 @@ import com.lubogeorgiev.bookshop.repositories.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 public class BookServiceImpl implements BookService{
@@ -24,5 +26,10 @@ public class BookServiceImpl implements BookService{
     @Override
     public boolean isSeeded() {
         return this.bookRepository.count() > 0;
+    }
+
+    @Override
+    public List<Book> findAllByReleaseDate(LocalDate date) {
+        return this.bookRepository.findAllByReleaseDateAfter(date).orElseThrow(NoSuchElementException::new);
     }
 }
